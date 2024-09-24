@@ -11,22 +11,27 @@ import Footer from './components/Footer'
 function App() {
   const [todos, setTodos] = useState([])
 
+  // add functionality
   const addTodo = (todo) => {
     setTodos((prev) => [{ id: Date.now(), ...todo }, ...prev])
-  }
 
+  }
+  // delete functionality
   const deleteTodo = (id) => {
     setTodos((prev) => prev.filter((prevTodo) => prevTodo.id != id))
   }
 
+  // update functionality
   const updateTodo = (id, todo) => {
     setTodos((prev) => prev.map((prevTodo) => prevTodo.id == id ? todo : prevTodo))
   }
 
+  // todo completed or not functionality
   const toggleCompleted = (id) => {
     setTodos((prev) => prev.map((prevTodo) => prevTodo.id == id ? { ...prevTodo, completed: !prevTodo.completed } : prevTodo))
   }
 
+  // get items from the local storage
   useEffect(() => {
     const todos = JSON.parse(localStorage.getItem("todos"))
     if (todos && todos.length > 0) {
@@ -34,6 +39,7 @@ function App() {
     }
   }, [])
 
+  // set items from the local storage
   useEffect(() => {
     (localStorage.setItem("todos", JSON.stringify(todos)))
   }, [todos])
